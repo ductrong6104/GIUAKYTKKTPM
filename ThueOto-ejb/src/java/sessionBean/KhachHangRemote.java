@@ -4,13 +4,18 @@
  */
 package sessionBean;
 
+import entityBean.Khachhang;
 import javax.ejb.Remote;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author ADMIN
  */
 @Remote
-public interface DangKyGPLX {
-    public void init();
+public interface KhachHangRemote {
+    
+    
+    public void create(Khachhang kh);
 }

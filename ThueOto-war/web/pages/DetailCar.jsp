@@ -4,34 +4,38 @@
     Author     : ADMIN
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="entityBean.CarEntity"%>
+<%@page import="entityBean.Xe"%>
+<%@page import="sessionBean.XeRemote"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
-<%@page import="sessionBean.Car"%>
 <%@page import="javax.naming.InitialContext"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@page contentType="text/html" pageEncoding="UTF-8"
+        %>
 <%!
-    private Car car = null;
+    private XeRemote xeRemote = null;
     public void jspInit () {
         try {
 //        tim class Converter trong client server
         InitialContext ic = new InitialContext () ;
-        car = (Car) ic.lookup (Car.class.getName () ) ;
+        xeRemote = (XeRemote) ic.lookup (XeRemote.class.getName () ) ;
            System.out.println("abc");
         } catch (Exception ex) {
         System.out.println("Couldn't create converter bean. " + ex.getMessage ()) ;
 
         }
     }
-    public void jspDestroy () {
-        car = null;
-    }
     
-//    List<CarEntity> listCar = car.initListCar();
-//    int id = (int ("name");
-//    CarEntity carEnti = car.getDetailCar(listCar, i);
+    public void jspDestroy () {
+        xeRemote = null;
+    }
     %>
+<%
+    int a = Integer.parseInt(request.getParameter("id")) ;
+    Xe xe = xeRemote.find(a);
+    
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +69,7 @@
             </nav>
         </div>
     </header> -->
-
+    
 
     <main>
         <div class="info-bar">
@@ -86,14 +90,14 @@
                     <div class="car-images">
                         <div class="container">
                             <img class="main-img"
-                                src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2021/p/g/2022/01/10/08/kWj-GgCY2tnKK1j8OyhZ1w.jpg"
+                                 src="../images/<%= xe.getAnhCollection().get(0).getNguonanh() %>"
                                 alt="Main Image">
                             <div class="sub-images">
-                                <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2021/p/g/2022/01/10/08/GnSe5I7fxDjknlQwLa1q5A.jpg"
+                                <img src="../images/<%= xe.getAnhCollection().get(1).getNguonanh() %>"
                                     alt="Sub Image 1">
-                                <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2021/p/g/2022/01/22/11/VtYgkEKdL6fLj-cWdf7P7Q.jpg"
+                                <img src="../images/<%= xe.getAnhCollection().get(2).getNguonanh() %>"
                                     alt="Sub Image 2">
-                                <img src="https://n1-pstg.mioto.vn/cho_thue_xe_o_to_tu_lai_thue_xe_du_lich_hochiminh/mitsubishi_xpander_2021/p/g/2022/01/22/12/Qmmo4B_hpEAAhHiUUbSctw.jpg"
+                                <img src="../images/<%= xe.getAnhCollection().get(3).getNguonanh() %>"
                                     alt="Sub Image 3">
                                 <!-- Add more sub images as needed -->
                             </div>
@@ -125,31 +129,35 @@
                             <!-- <img src="https://static.vecteezy.com/system/resources/previews/014/661/896/non_2x/racing-car-seat-line-icon-vector.jpg" alt="Seat Icon" class="icon-left"> -->
                             <div class="seat-content">
                                 <div class="seat-count">Số ghế</div>
-                                <div class="seat-description">7 chỗ</div>
+                                <div class="seat-description"><%= xe.getSoghe() %> chỗ</div>
                             </div>
                         </div>
 
 
 
                     </div>
+                    <%--<c:if test="<%xe.getTruyendong()%> !=  null">--%>
                     <div class="col-md-3">
                         <div class="seat-info">
                             <div class="seat-count">Truyền Động</div>
-                            <div class="seat-description">Số tự động</div>
+                            <div class="seat-description"><%=xe.getTruyendong() %></div>
                         </div>
                     </div>
+                    <%--</c:if>--%>
                     <div class="col-md-3">
                         <div class="seat-info">
                             <div class="seat-count">Nhiên liệu</div>
-                            <div class="seat-description">Xăng</div>
+                            <div class="seat-description"><%=xe.getNhienlieu()%></div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="seat-info">
                             <div class="seat-count">NL tiêu hao</div>
-                            <div class="seat-description">6 lít/100km</div>
+                            <div class="seat-description"><%=xe.getNltieuhao()%> lít/100km</div>
                         </div>
                     </div>
+
+                    
 
                 </div>
                 <hr>
@@ -229,7 +237,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            825/ngày
+                            <fmt:formatNumber value="<%= xe.getGia() %>" minFractionDigits="0"/>đ/ngày
                             <div class="card card-child">
                                 <div class="card-body">
                                     <div class="row">
@@ -261,7 +269,7 @@
                                     <h6>Tổng cộng</h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6>947.000đ/ngày</h6>
+                                    <h6><fmt:formatNumber value="<%= xe.getGia() %>" minFractionDigits="0"/>đ/ngày</h6>
                                     <h6>84.000đ/ngày</h6>
                                     <hr>
                                     <h6>1.030.000đ x 1 ngày</h6>
@@ -273,7 +281,7 @@
                                     <h5>Thành Tiền</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <h5>912.000đ</h5>
+                                    <h5>1.030.000đ</h5>
                                 </div>
                                 <button class="btnchoose-hire" type="submit" onclick="openform()">Chọn Thuê</button>
                                 

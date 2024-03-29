@@ -4,7 +4,31 @@
     Author     : ADMIN
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Locale"%>
+<%@page import="entityBean.Khachhang"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="sessionBean.KhachHangRemote"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    private KhachHangRemote khRemote = null;
+    public void jspInit () {
+        try {
+//        tim class Converter trong client server
+        InitialContext ic = new InitialContext () ;
+        khRemote = (KhachHangRemote) ic.lookup (KhachHangRemote.class.getName () ) ;
+           System.out.println("abc");
+        } catch (Exception ex) {
+        System.out.println("Couldn't create converter bean. " + ex.getMessage ()) ;
+
+        }
+    }
+    
+    public void jspDestroy () {
+        khRemote = null;
+    }
+    %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,32 +137,51 @@
                 <div class="card-title">
                     <h2>Xác thực giấy phép lái xe</h2>
                 </div>
-                <div class="all-group">
+                <form id="formGplx" class="all-group" method="post">
                     <div class="group">
                         <p>Số phép lái xe</p>
-                        <input type="text" class="font-control">
+                        <input type="text" class="font-control" name="splx" required>
                     </div>
                     <div class="group">
-                        <p>Họ và tên</p>
-                        <input type="text" class="font-control">
+                        <p>Họ</p>
+                        <input type="text" class="font-control" name="ho" required>
+                    </div>
+                    <div class="group">
+                        <p>Tên</p>
+                        <input type="text" class="font-control" name="ten" required>
                     </div>
                     <div class="group">
                         <p>Ngày sinh</p>
-                        <input type="date" class="font-control">
+                        <input type="date" class="font-control" name="ngaySinh" required>
                     </div>
                     <br>
                     <div class="group">
                         <p>Ảnh giấy phép lái xe</p>
-                        <input type="file" class="image-rental" id="image-upload" accept="image/*">
+                        <input type="file" class="image-rental" name="image-upload" accept="image/*">
                         <label for="image-upload" class="upload-label">Chọn ảnh</label>
                         <img id="preview-image" src="#" alt="Preview" class="preview-image">
                     </div>
 
-                    <button class="btnsubmit" type="submit" class="font-control">Xác Thực</button>
-                </div>
+                    <input type="submit" class="btnsubmit" class="font-control" name="buttonSubmit" value="Xác thực" />
+                </form>
+                <%
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+    if (request.getParameter("buttonSubmit") != null){
+        Khachhang kh = new Khachhang();
+        kh.setSogplx(request.getParameter("splx"));
+        kh.setHo(request.getParameter("ho"));
+        kh.setTen(request.getParameter("ten"));
+        kh.setNgaysinh(formatter.parse(request.getParameter("ngaySinh")));
+        khRemote.create(kh);
+        response.sendRedirect("AlertSuccess.jsp");
+    }
+        %>
+
+
             </div>
         </div>
     </div>
 </body>
+
 
 </html>

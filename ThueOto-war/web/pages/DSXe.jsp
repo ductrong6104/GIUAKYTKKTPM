@@ -5,28 +5,30 @@
 --%>
 
 
-<%@page import="entityBean.CarEntity"%>
+<%@page import="entityBean.Xe"%>
+<%@page import="sessionBean.XeRemote"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
-<%@page import="sessionBean.Car"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="javax.naming.InitialContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
         %>
 <%!
-    private Car car = null;
+    private XeRemote xeRemote = null;
     public void jspInit () {
         try {
 //        tim class Converter trong client server
         InitialContext ic = new InitialContext () ;
-        car = (Car) ic.lookup (Car.class.getName () ) ;
+        xeRemote = (XeRemote) ic.lookup (XeRemote.class.getName () ) ;
            System.out.println("abc");
         } catch (Exception ex) {
         System.out.println("Couldn't create converter bean. " + ex.getMessage ()) ;
 
         }
     }
+    
     public void jspDestroy () {
-        car = null;
+        xeRemote = null;
     }
     %>
 <!DOCTYPE html>
@@ -118,21 +120,23 @@
             <div class="container py-3">
                 <div class="row">
                     
-                    <% List<CarEntity> listCar = car.initListCar();
-                        for (CarEntity carEnti: listCar ){
+                    <% List<Xe> listXe = xeRemote.findAll();
+                        for (Xe xeEntity: listXe ){
                         %>
-                            <div href="" class="col-md-4">
-                            <a class="card" href="DetailCar.jsp?id=<%=carEnti.getId()%>">
-                            <img src="../images/mitsubishi_1.jpg">
-                            <div class="card_chitiet">
-                                <h4><%= carEnti.getName() %></h4>
-                                <span style="display: flex;">
-                                    <p><img src="../images/location.png">Quận 10, TP.HCM</p>
-                                    <p class="text-right"><%= carEnti.getPrice() %>k/ngày</p>
-                                </span>
-                                
-                            </div>
-                        </a>
+            
+                    <div href="" class="col-md-4">
+                    <a class="card" href="DetailCar.jsp?id=<%=xeEntity.getMaxe()%>">
+                        <img style="width:416px; height: 286px"
+                             src="../images/<%= xeEntity.getAnhCollection().get(0).getNguonanh() %>">
+                    <div class="card_chitiet">
+                        <h4><%= xeEntity.getTenxe()%></h4>
+                        <span style="display: flex;">
+                            <p><img src="../images/location.png">Quận 10, TP.HCM</p>
+                            <p class="text-right"><fmt:formatNumber value="<%= xeEntity.getGia() %>" minFractionDigits="0"/>đ/ngày</p>
+                        </span>
+
+                    </div>
+                    </a>
                     </div>
                        <% }%>
                     
@@ -143,9 +147,7 @@
 
             
 
+
          </main>
     </body>
 </html>
-<script>
-    console.log(<%= listCar %>);
-</script>
