@@ -1,0 +1,6 @@
+build/*
+dist/*
+ThueOto-war/build/*
+ThueOto-war/dist/*
+ThueOto-ejb/build/*
+ThueOto-ejb/dist/*
