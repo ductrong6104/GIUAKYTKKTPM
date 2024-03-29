@@ -1,0 +1,199 @@
+header {
+    background-color: #333; /* Màu nền của header */
+    padding: 20px 0; /* Khoảng cách lề trên và dưới của header */
+}
+
+.container {
+    max-width: 1200px; /* Đảm bảo header không rộng quá */
+    margin: 0 auto; /* Căn giữa header */
+    display: flex; /* Sử dụng flexbox để căn chỉnh logo và menu */
+    justify-content: space-between; /* Căn logo và menu hai bên */
+    align-items: center; /* Canh giữa theo chiều dọc */
+}
+
+.logo {
+    /* CSS cho logo */
+}
+
+.logo a img {
+    height: 50px; /* Chiều cao của logo */
+    /* Hoặc */
+    /* width: auto; */
+}
+
+nav ul {
+    list-style-type: none; /* Loại bỏ dấu chấm của danh sách */
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline; /* Hiển thị menu items trên cùng một hàng */
+    margin-right: 20px; /* Khoảng cách giữa các menu items */
+}
+
+nav ul li:last-child {
+    margin-right: 0; /* Loại bỏ khoảng cách bên phải của menu item cuối cùng */
+}
+
+nav ul li a {
+    text-decoration: none; /* Loại bỏ đường viền của liên kết */
+    color: #fff; /* Màu chữ của menu items */
+    font-weight: bold; /* Độ đậm của font */
+}
+.info-bar {
+    background-color: #f4f4f4; /* Background color */
+    padding: 10px 0; /* Add padding as needed */
+}
+
+.info-bar .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.info-bar ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.info-bar ul li a {
+    text-decoration: none;
+    color: #333333; /* Info item color */
+}
+.car-images {
+    background-color: #ffffff; /* Background color */
+    padding: 20px 0; /* Add padding as needed */
+    align-items: center;
+}
+
+.car-images .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.car-images img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px; /* Add margin between images */
+    border-radius: 15px;
+    
+}
+.main-img
+{
+    height: 70vh;
+}
+
+.sub-images {
+    display: flex;
+    flex-direction: column; 
+    margin-left: 15px;
+}
+
+.sub-images img {
+    width: 120vh;
+    height: 24vh;
+
+}
+.details-section {
+    padding: 50px 0; /* Add padding as needed */
+}
+
+.details-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#specs, #documents, #location, #owner {
+    margin-bottom: 50px; /* Add margin between sections */
+}
+.title-car
+{
+    margin-top: 20px;
+}
+.seat-info {
+    text-align: center; /* Canh giữa nội dung */
+}
+
+.seat-count {
+    font-size: 16px; /* Kích thước chữ số ghế */
+}
+
+.seat-description {
+    font-size: 20px; /* Kích thước chữ mô tả */
+    font-weight: bold;
+}
+.characteristic
+{
+    margin-left: 100px;
+}
+.seat-info img {
+    width: 50px; /* Độ rộng của hình ảnh */
+    height: auto; /* Chiều cao tự động điều chỉnh theo tỷ lệ */
+    margin-right: 10px; /* Khoảng cách giữa hình ảnh và nội dung */
+    float: left;
+}
+.card-child
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.btnchoose-hire
+{
+    width: 100%;
+    background-color: rgb(126, 190, 126);
+    border-radius: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    size: 15px;
+    color: white;
+}
+.rental-car
+{
+    padding: 15px;
+    background-color: beige;
+    border-radius: 15px;
+    border-left: rgb(126, 190, 126) solid 5px;
+    margin-left: 100px;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền với độ mờ */
+    z-index: 999; /* Đảm bảo form hiển thị trên cùng */
+}
+
+.form-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000; /* Đảm bảo form hiển thị trên cùng */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
